@@ -3,18 +3,18 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/projectforpoc-489612/gkedeploymenttest:$COMMIT_SHA', '.']
 
-  # Step 2: Get GKE Credentials (Using the correct cloud-sdk image)
+  # Step 2: Get GKE Credentials
   - name: 'gcr.io/://google.com'
     entrypoint: 'gcloud'
     args:
       - 'container'
       - 'clusters'
       - 'get-credentials'
-      - 'autopilot-cluster-1' # Your Cluster Name
+      - 'autopilot-cluster-1'
       - '--region'
-      - 'us-central1'        # Your Region
+      - 'us-central1'
 
-  # Step 3: Deploy to GKE (Using the same cloud-sdk image)
+  # Step 3: Deploy to GKE
   - name: 'gcr.io/://google.com'
     entrypoint: 'kubectl'
     args:
