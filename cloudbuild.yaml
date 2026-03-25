@@ -1,0 +1,12 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/projectforpoc-489612/gkedeploymenttest', '.']
+
+images:
+  - 'gcr.io/projectforpoc-489612/github.com/sham786030/gkedeploymenttest:$COMMIT_SHA'
+
+options:
+  # This satisfies requirement (c) in the error message
+  logging: CLOUD_LOGGING_ONLY
+  # Ensure the capital 'A' and no extra spaces
+  serviceAccount: 'projects/projectforpoc-489612/serviceAccounts/shamim-service-account@projectforpoc-489612.iam.gserviceaccount.com'
