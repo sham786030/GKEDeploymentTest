@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-1-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: deployment-1-service
+  template:
+    metadata:
+      labels:
+        app: deployment-1-service
+    spec:
+      containers:
+      - name: deployment-1-service
+        image: us-central1-docker.pkg.dev/microservices-demo-001/my-repo/service-a:v1
+        ports:
+        - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: deployment-1-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: deployment-1-service
+  ports:
+    - port: 80
+      targetPort: 8080
+	  
