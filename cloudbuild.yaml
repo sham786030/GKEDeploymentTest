@@ -1,13 +1,13 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/projectforpoc-489612/gkedeploymenttest', '.']
+    # Use the SAME name here as you do in the images section below
+    args: ['build', '-t', 'gcr.io/projectforpoc-489612/gkedeploymenttest:$COMMIT_SHA', '.']
 
 images:
-  - 'gcr.io/projectforpoc-489612/github.com/sham786030/gkedeploymenttest:$COMMIT_SHA'
+  # Cloud Build will now find this image and push it automatically
+  - 'gcr.io/projectforpoc-489612/gkedeploymenttest:$COMMIT_SHA'
 
-# This is a TOP-LEVEL field, NOT inside options
 serviceAccount: 'projects/projectforpoc-489612/serviceAccounts/shamim-service-account@projectforpoc-489612.iam.gserviceaccount.com'
 
 options:
-  # This remains inside options
   logging: CLOUD_LOGGING_ONLY
