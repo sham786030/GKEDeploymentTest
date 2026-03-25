@@ -5,8 +5,9 @@ steps:
 images:
   - 'gcr.io/projectforpoc-489612/github.com/sham786030/gkedeploymenttest:$COMMIT_SHA'
 
+# This is a TOP-LEVEL field, NOT inside options
+serviceAccount: 'projects/projectforpoc-489612/serviceAccounts/shamim-service-account@projectforpoc-489612.iam.gserviceaccount.com'
+
 options:
-  # This satisfies requirement (c) in the error message
+  # This remains inside options
   logging: CLOUD_LOGGING_ONLY
-  # Ensure the capital 'A' and no extra spaces
-  serviceAccount: 'projects/projectforpoc-489612/serviceAccounts/shamim-service-account@projectforpoc-489612.iam.gserviceaccount.com'
