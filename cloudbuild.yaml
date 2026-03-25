@@ -1,10 +1,26 @@
 steps:
+  # Step 1: Build the Docker Image
   - name: 'gcr.io/cloud-builders/docker'
-    # Use the SAME name here as you do in the images section below
     args: ['build', '-t', 'gcr.io/projectforpoc-489612/gkedeploymenttest:$COMMIT_SHA', '.']
 
+  # Step 2: Get GKE Credentials
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'gcloud'
+    args:
+      - 'nginx-1'
+      - 'autopilot-cluster-1'
+      - 'autopilot-cluster-1'
+      - '--us-central1'
+
+  # Step 3: Deploy to GKE
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'kubectl'
+    args:
+      - 'apply'
+      - '-f'
+      - 'k8s-deployment.yaml'
+
 images:
-  # Cloud Build will now find this image and push it automatically
   - 'gcr.io/projectforpoc-489612/gkedeploymenttest:$COMMIT_SHA'
 
 serviceAccount: 'projects/projectforpoc-489612/serviceAccounts/shamim-service-account@projectforpoc-489612.iam.gserviceaccount.com'
